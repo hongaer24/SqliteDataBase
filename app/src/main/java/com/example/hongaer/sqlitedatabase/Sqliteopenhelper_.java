@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 
 public class Sqliteopenhelper_ extends SQLiteOpenHelper {
-      private String CREATE_TB ="create table class_tb(_id integer primary key autoincrement,classname,classstype)";
+      private String CREATE_TB ="create table class_tc(_id integer primary key autoincrement,classname,classtype)";
 
     public Sqliteopenhelper_(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
