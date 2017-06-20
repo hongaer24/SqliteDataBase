@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     private Sqliteopenhelper_ sqliteopenhelper_;
     private List<Map<String, Object>> oList;
     private ListView listView;
+    private String index;
+    private SimpleAdapter adapter;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -34,7 +36,9 @@ public class MainActivity extends AppCompatActivity {
         btn_query.setOnClickListener(onClicklistener);
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, final View view, int position, long id) {
+            public boolean onItemLongClick(AdapterView<?> parent, final View view, final int position, final long id) {
+                Map<String,Object> map= (Map<String, Object>) listView.getItemAtPosition(position);
+                index=map.get("id_").toString();
                 AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle("请选择");
                 builder.setItems(R.array.dialog_arry, new DialogInterface.OnClickListener() {
@@ -44,15 +48,18 @@ public class MainActivity extends AppCompatActivity {
                             case 0:
                                 LayoutInflater inflater=getLayoutInflater().from(MainActivity.this);
                                 View view=inflater.inflate(R.layout.dialog_item,null);
-                                EditText dialog_classname= (EditText) view.findViewById(R.id.dialog_classname);
-                                EditText dialog_classtype= (EditText) view.findViewById(R.id.dialog_classtype);
+                                final EditText dialog_classname= (EditText) view.findViewById(R.id.dialog_classname);
+                                final EditText dialog_classtype= (EditText) view.findViewById(R.id.dialog_classtype);
                                 AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
                                 builder.setTitle("请更改");
                                 builder.setView(view);
                                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-
+                                        SqliedatabaseUtil.updata(db,dialog_classname.getText().toString(),dialog_classtype.getText().toString(),index);
+                                        oList.get(position).put("classname_",dialog_classname.getText().toString());
+                                        oList.get(position).put("classtype_",dialog_classname.getText().toString());
+                                        adapter.notifyDataSetChanged();
                                     }
                                 });
                                 builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -94,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
                 case R.id.btn_query:
                    oList= SqliedatabaseUtil.query(db);
-                    SimpleAdapter adapter=new SimpleAdapter(MainActivity.this,oList,R.layout.listview_item,new
+                  adapter=new SimpleAdapter(MainActivity.this,oList,R.layout.listview_item,new
                             String[]{"id_","classname_","classtype_"},new int[]{R.id.item_id,R.id.item_classname,R.id.item_classtype});
                        listView.setAdapter(adapter);
                     break;
