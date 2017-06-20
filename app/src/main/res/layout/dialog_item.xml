@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="9dp"
+    android:paddingRight="9dp"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="班 级 名" />
+        <EditText
+            android:id="@+id/dialog_classname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入班级名"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="班级类型" />
+        <EditText
+            android:id="@+id/dialog_classtype"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入班级类型"/>
+    </LinearLayout>
+
+
+</LinearLayout>
