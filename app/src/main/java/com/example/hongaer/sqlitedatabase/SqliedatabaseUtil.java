@@ -28,14 +28,12 @@ public class SqliedatabaseUtil {
               map.put("classtype_",cursor.getString(cursor.getColumnIndex(cursor.getColumnName(2))));
               oList.add(map);
           }
-
-
-
-         return oList;
-
-
-
-
-
+            return oList;
      }
+    /* 数据库修改语句*/
+  public static void updata(SQLiteDatabase db,String classname,String classtype,String id) {
+      db.execSQL("update class_tc set classname=? where _id=?", new String[]{classname, id});
+      db.execSQL("update class_tc set classtype=? where _id=?", new String[]{classtype, id});
+
+    }
 }
