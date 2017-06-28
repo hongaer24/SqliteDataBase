@@ -36,4 +36,7 @@ public class SqliedatabaseUtil {
       db.execSQL("update class_tc set classtype=? where _id=?", new String[]{classtype, id});
 
     }
+   public static void delete(SQLiteDatabase db,String id){
+      db.execSQL("delete from class_tc where _id= ?",new String[]{id});
+   }
 }
