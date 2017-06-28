@@ -74,7 +74,9 @@ public class MainActivity extends AppCompatActivity {
                             break;
 
                             case 1:
-                             Toast.makeText(MainActivity.this,"点击了删除",Toast.LENGTH_LONG).show();
+                            SqliedatabaseUtil.delete(db,index);
+                            oList.remove(position);
+                            adapter.notifyDataSetChanged();
                             break;
 
                         }
@@ -96,6 +98,11 @@ public class MainActivity extends AppCompatActivity {
                             edit_classtype.getText().toString());
                     edit_classname.setText("");
                     edit_classtype.setText("");
+                    /* 添加后自动查询 */
+                    oList= SqliedatabaseUtil.query(db);
+                    adapter=new SimpleAdapter(MainActivity.this,oList,R.layout.listview_item,new
+                            String[]{"id_","classname_","classtype_"},new int[]{R.id.item_id,R.id.item_classname,R.id.item_classtype});
+                    listView.setAdapter(adapter);
                     Toast.makeText(MainActivity.this,"恭喜你添加成功！",Toast.LENGTH_LONG).show();
                     break;
 
